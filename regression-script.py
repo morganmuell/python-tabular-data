@@ -4,6 +4,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from scipy import stats
 
+dataframe = pd.read_csv("iris.csv")
 
 def regression(df):
     """
@@ -26,40 +27,26 @@ def regression(df):
     regression
     """
 
-    x = df.petal_length_cm
-    y = df.sepal_length_cm    
-    regression = stats.linregress(x, y)
-    return regression 
+#    x = df.petal_length_cm
+#    y = df.sepal_length_cm    
+#    regression = stats.linregress(x, y)
+#    return regression 
 
 
 
-if __name__ == '__main__':
-    regression = regression(df)
+#if __name__ == '__main__':
+#    regression = regression(df)
     
 
 
 
 #versicolor
 versicolor = dataframe[dataframe.species == "Iris_versicolor"]
-
-vx = versicolor.petal_length_cm
-vy = versicolor.sepal_length_cm
-
-regression(df)
-
-plt.scatter(vx, vy, label = 'Data')
-plt.plot(vx, slope * vx + vintercept, color = "orange", label = 'Fitted line')
-plt.xlabel("Petal length (cm)")
-plt.ylabel("Sepal length (cm)")
-plt.legend()
-plt.savefig("versicolor_petal_v_sepal_length_regress.png")
-
-#versicolor
-versicolor = dataframe[dataframe.species == "Iris_versicolor"]
-vers_reg = regression(versicolor)
 versx = versicolor.petal_length_cm
 versy = versicolor.sepal_length_cm
-plt.plot(vx, slope * vx + vintercept, color = "orange", label = 'Fitted line')
+vers_reg = stats.linregress(versx, versy)
+plt.scatter(versx, versy, label = 'Data')
+plt.plot(versx, vers_reg.slope * versx + vers_reg.intercept, color = "orange", label = 'Fitted line')
 plt.xlabel("Petal length (cm)")
 plt.ylabel("Sepal length (cm)")
 plt.legend()
@@ -69,9 +56,10 @@ plt.savefig("versicolor_petal_v_sepal_length_regress.png")
 
 #setosa
 setosa = dataframe[dataframe.species == "Iris_setosa"]
-set_reg = regression(setosa)
 setx = setosa.petal_length_cm
 sety = setosa.sepal_length_cm
+plt.scatter(setx, sety, label = 'Data')
+set_reg = stats.linregress(setx, sety)
 plt.plot(setx, set_reg.slope * setx + set_reg.intercept, color = "purple", label = 'Fitted line')
 plt.xlabel("Petal length (cm)")
 plt.ylabel("Sepal length (cm)")
@@ -83,9 +71,10 @@ plt.savefig("setosa_petal_v_sepal_length_regress.png")
 
 #virginica
 virginica = dataframe[dataframe.species == "Iris_virginica"]
-virg_reg = regression(virginica)
 virgx = virginica.petal_length_cm
 virgy = virginica.sepal_length_cm
+virg_reg = stats.linregress(virgx, virgy)
+plt.scatter(virgx, virgy, label = 'Data')
 plt.plot(virgx, virg_reg.slope * virgx + virg_reg.intercept, color = "red", label = 'Fitted line')
 plt.xlabel("Petal length (cm)")
 plt.ylabel("Sepal length (cm)")
